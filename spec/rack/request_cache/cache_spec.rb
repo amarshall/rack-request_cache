@@ -46,4 +46,20 @@ describe Rack::RequestCache::Cache do
       end.to raise_error ArgumentError, 'no block given'
     end
   end
+
+  describe "#fetch" do
+    it "returns the cached result for the key when one exists" do
+      value = double
+      cache = Rack::RequestCache::Cache.new
+
+      cache.cache(:key) { value }
+
+      expect(cache.fetch(:key)).to eq value
+    end
+
+    it "raises a KeyError when the key does not exist" do
+      cache = Rack::RequestCache::Cache.new
+      expect{ cache.fetch(:key) }.to raise_error KeyError
+    end
+  end
 end

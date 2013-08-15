@@ -10,6 +10,10 @@ module Rack
         return @cache[key] if @cache.has_key? key
         @cache[key] = yield
       end
+
+      def fetch key
+        @cache.fetch key
+      end
     end
   end
 end
