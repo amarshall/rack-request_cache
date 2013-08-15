@@ -6,6 +6,7 @@ module Rack
       end
 
       def cache key
+        raise ArgumentError, 'no block given' unless block_given?
         return @cache[key] if @cache.has_key? key
         @cache[key] = yield
       end

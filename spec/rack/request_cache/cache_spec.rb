@@ -38,5 +38,12 @@ describe Rack::RequestCache::Cache do
       cache.cache(:key) { test_object.expensive_operation }
       cache.cache(:key) { test_object.expensive_operation }
     end
+
+    it "raises an ArgumentError when no block is given" do
+      cache = Rack::RequestCache::Cache.new
+      expect do
+        cache.cache(:key)
+      end.to raise_error ArgumentError, 'no block given'
+    end
   end
 end
