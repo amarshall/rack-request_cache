@@ -6,7 +6,8 @@ module Rack
       end
 
       def cache key
-        @cache[key] ||= yield
+        return @cache[key] if @cache.has_key? key
+        @cache[key] = yield
       end
     end
   end
