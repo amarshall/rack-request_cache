@@ -18,10 +18,10 @@ describe Rack::RequestCache::Cache do
     returned = cache.cache(:key) { value }
     expect do
       value << 'baz'
-    end.to raise_error RuntimeError, /can't modify frozen/
+    end.to raise_error RuntimeError, /frozen/
     expect do
       returned << 'baz'
-    end.to raise_error RuntimeError, /can't modify frozen/
+    end.to raise_error RuntimeError, /frozen/
 
     expect(cache.fetch(:key)).to eq 'foobar'
   end
