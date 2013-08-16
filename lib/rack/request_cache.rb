@@ -10,7 +10,7 @@ module Rack
     def call env
       @app.call env
     ensure
-      self.class.cache_store.clear!
+      self.class.clear!
     end
 
     def self.cache_store
@@ -18,6 +18,7 @@ module Rack
     end
 
     def self.cache *args, &block; cache_store.cache(*args, &block); end
+    def self.clear!; cache_store.clear!; end
     def self.fetch *args; cache_store.fetch(*args); end
     def self.has_key? *args; cache_store.has_key?(*args); end
   end
