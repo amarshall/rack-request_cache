@@ -12,6 +12,10 @@ describe Rack::RequestCache do
     body
   end
 
+  def unfreezable_double *args
+    double(*args).tap { |d| d.stub(:freeze).and_return d }
+  end
+
   it "is a Rack middleware" do
     app = Rack::Builder.app do
       use Rack::Lint
@@ -52,5 +56,31 @@ describe Rack::RequestCache do
     expect { request_cache.call({}) }.to raise_error exception_class
 
     expect(Rack::RequestCache.has_key?(:foo)).to eq false
+  end
+
+  it "is thread safe" do
+    q1 = Queue.new
+    q2 = Queue.new
+    app = ->(env) do
+      Rack::RequestCache.cache(:foo) { env }
+      env.queue.pop
+      expect(Rack::RequestCache.fetch(:foo)).to eq env
+      env.queue.pop
+    end
+    env_1 = unfreezable_double 'one', queue: q1
+    env_2 = unfreezable_double 'two', queue: q2
+
+    request_cache = Rack::RequestCache.new app
+
+    thread_1 = Thread.new { request_cache.call env_1 }
+    thread_2 = Thread.new { request_cache.call env_2 }
+
+    q1 << nil
+    q2 << nil
+    q1 << nil
+    q2 << nil
+
+    thread_1.join
+    thread_2.join
   end
 end
