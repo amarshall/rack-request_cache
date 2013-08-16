@@ -1,6 +1,16 @@
 require 'rack/request_cache/cache'
 
 describe Rack::RequestCache::Cache do
+  it "can store multiple keys" do
+    cache = Rack::RequestCache::Cache.new
+
+    cache.cache(:foo) { :bar }
+    cache.cache(:baz) { :qux }
+
+    expect(cache.fetch(:foo)).to eq :bar
+    expect(cache.fetch(:baz)).to eq :qux
+  end
+
   describe "#cache" do
     it "returns the result of the block" do
       test_object = double
