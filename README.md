@@ -1,4 +1,4 @@
-# RackRequestCache
+# Rack::RequestCache
 
 [![Build Status](https://secure.travis-ci.org/amarshall/rack-request_cache.png?branch=master)](https://travis-ci.org/amarshall/rack-request_cache)
 [![Code Climate rating](https://codeclimate.com/github/amarshall/rack-request_cache.png)](https://codeclimate.com/github/amarshall/rack-request_cache)
