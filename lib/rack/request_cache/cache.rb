@@ -8,7 +8,7 @@ module Rack
       def cache key
         raise ArgumentError, 'no block given' unless block_given?
         return @cache[key] if @cache.has_key? key
-        @cache[key] = yield
+        @cache[key] = yield.freeze
       end
 
       def fetch key

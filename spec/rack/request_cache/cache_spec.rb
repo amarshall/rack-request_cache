@@ -11,6 +11,21 @@ describe Rack::RequestCache::Cache do
     expect(cache.fetch(:baz)).to eq :qux
   end
 
+  it "does not allow mutating the cached value" do
+    cache = Rack::RequestCache::Cache.new
+    value = 'foobar'
+
+    returned = cache.cache(:key) { value }
+    expect do
+      value << 'baz'
+    end.to raise_error RuntimeError, "can't modify frozen String"
+    expect do
+      returned << 'baz'
+    end.to raise_error RuntimeError, "can't modify frozen String"
+
+    expect(cache.fetch(:key)).to eq 'foobar'
+  end
+
   describe "#cache" do
     it "returns the result of the block" do
       test_object = double
