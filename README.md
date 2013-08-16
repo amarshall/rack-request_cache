@@ -11,7 +11,22 @@ Install as usual: `gem install rack-request_cache` or add `gem 'rack-request_cac
 
 ## Usage
 
-TODO
+Add the middleware to your app (likely in your `config.ru`):
+
+```ruby
+require 'rack/request_cache'
+
+use Rack::RequestCache
+run MyApp
+```
+
+Then, whenever you wish to cache something:
+
+```ruby
+Rack::RequestCache.cache do
+  expensive_operation
+end
+```
 
 ## Contributing
 
