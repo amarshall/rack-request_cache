@@ -8,7 +8,7 @@ Provides a caching layer that exists only within a single Rack request. The midd
 
 ## Installation
 
-Install as usual: `gem install rack-request_cache` or add `gem 'rack-request_cache'` to your Gemfile. Note that Ruby 2.0 is required.
+Install as usual: `gem install rack-request_cache` or add `gem 'rack-request_cache'` to your Gemfile.
 
 ## Usage
 
