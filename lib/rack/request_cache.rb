@@ -8,9 +8,9 @@ module Rack
     end
 
     def call env
-      response = @app.call env
+      @app.call env
+    ensure
       self.class.cache_store.clear!
-      response
     end
 
     def self.cache_store

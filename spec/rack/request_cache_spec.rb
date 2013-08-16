@@ -39,4 +39,18 @@ describe Rack::RequestCache do
 
     expect(Rack::RequestCache.has_key?(:foo)).to eq false
   end
+
+  it "clears the cache when the request raises an error, reraising it" do
+    exception_class = Class.new Exception
+    app = ->(env) do
+      Rack::RequestCache.cache(:foo) { 'bar' }
+      expect(Rack::RequestCache.fetch(:foo)).to eq 'bar'
+      raise exception_class
+    end
+
+    request_cache = Rack::RequestCache.new app
+    expect { request_cache.call({}) }.to raise_error exception_class
+
+    expect(Rack::RequestCache.has_key?(:foo)).to eq false
+  end
 end
