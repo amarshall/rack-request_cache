@@ -1,6 +1,6 @@
 # RackRequestCache
 
-[![Build Status](https://secure.travis-ci.org/amarshall/rack-request_cache.png?branch=master)](http://travis-ci.org/amarshall/rack-request_cache)
+[![Build Status](https://secure.travis-ci.org/amarshall/rack-request_cache.png?branch=master)](https://travis-ci.org/amarshall/rack-request_cache)
 [![Code Climate rating](https://codeclimate.com/github/amarshall/rack-request_cache.png)](https://codeclimate.com/github/amarshall/rack-request_cache)
 
 Provides a caching layer that exists only within a single Rack request. The middleware itself is thread-safe; each thread has its own cache.
