@@ -72,6 +72,20 @@ describe Rack::RequestCache::Cache do
     end
   end
 
+  describe "#clear!" do
+    it "removes all keys & values from the cache" do
+      cache = Rack::RequestCache::Cache.new
+
+      cache.cache(:foo) {}
+      cache.cache(:bar) {}
+
+      cache.clear!
+
+      expect(cache.has_key?(:foo)).to eq false
+      expect(cache.has_key?(:bar)).to eq false
+    end
+  end
+
   describe "#fetch" do
     it "returns the cached result for the key when one exists" do
       value = double

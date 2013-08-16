@@ -11,6 +11,10 @@ module Rack
         @cache[key] = yield.freeze
       end
 
+      def clear!
+        @cache.clear
+      end
+
       def fetch key
         @cache.fetch key
       end
