@@ -14,6 +14,10 @@ module Rack
       def fetch key
         @cache.fetch key
       end
+
+      def has_key? key
+        @cache.has_key? key
+      end
     end
   end
 end

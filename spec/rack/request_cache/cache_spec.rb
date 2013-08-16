@@ -62,4 +62,17 @@ describe Rack::RequestCache::Cache do
       expect{ cache.fetch(:key) }.to raise_error KeyError
     end
   end
+
+  describe "#has_key?" do
+    it "returns true when the key has been cached" do
+      cache = Rack::RequestCache::Cache.new
+      cache.cache(:key) {}
+      expect(cache.has_key?(:key)).to eq true
+    end
+
+    it "returns false when the key has not been cached" do
+      cache = Rack::RequestCache::Cache.new
+      expect(cache.has_key?(:key)).to eq false
+    end
+  end
 end
